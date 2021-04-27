@@ -1,0 +1,32 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background-color: #DB4C3F;
+    color: white;
+
+    ul, li {
+        padding: 0;
+        margin: 0;
+    }
+
+    ul {
+        display: flex;
+        list-style-type: none;
+    }
+
+    li {
+        margin-right: 16px;
+    }
+
+    input {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: white;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+}
