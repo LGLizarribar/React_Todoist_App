@@ -8,8 +8,10 @@ const AddTask = (props) => {
     const onCreateTask = (ev) => {
         ev.preventDefault();
 
-        props.newTask(task);
-        setTask('');
+        if(task){
+            props.newTask(task);
+            setTask('');
+        }
     }
 
     const handleOpenForm = () => {
