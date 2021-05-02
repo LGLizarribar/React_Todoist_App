@@ -17,13 +17,14 @@ const INITIAL_TODOS = [
     title: 'Aprender React',
   },{
     id: '4b14843c-01e0-4092-9c09-e2fffb344d8b',
-    title: 'Echar la siesta',
+    title: 'Echar horas a react',
   },
 ]
 
 const App = () => {
   const [todos, setTodos] = useState(INITIAL_TODOS);
   const [completed, setCompleted] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
 
   const completeTodo = (todoId) => {
     const todo = todos.find((t) => t.id === todoId);
@@ -46,12 +47,24 @@ const App = () => {
     }
 
     setTodos([...todos, taskToAdd]);
+  };
+
+  const changeSearchInput = (search) => {
+    setSearchInput(search.toLowerCase());
   }
+
+  const filterTodos = () => {
+    if(searchInput){
+      return todos.filter(t => t.title.toLowerCase().includes(searchInput));
+    } else {
+      return todos;
+    }
+  };
 
   return (
     <Router>
       <div className="app">
-        <Navbar />
+        <Navbar changeSearchInput={changeSearchInput} searchInput={searchInput}/>
 
         <Switch>
           <Route
@@ -59,7 +72,7 @@ const App = () => {
             path="/"
             component={(props) => <MainList
               {...props}
-              todos={todos}
+              todos={filterTodos()}
               handleTodo={completeTodo}
               newTask={newTask}/
               >}

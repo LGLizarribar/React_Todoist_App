@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import './Navbar.scss';
 
-const Navbar = () => {
+const Navbar = (props) => {
     return (
         <nav className="nav">
             <div className="nav__left">
@@ -10,7 +10,12 @@ const Navbar = () => {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <input type="text" placeholder="Buscar"/>
+                        <input
+                            type="text"
+                            placeholder="Buscar"
+                            onChange={(ev)=> props.changeSearchInput(ev.target.value)}
+                            value={props.searchInput}
+                        />
                     </li>
                 </ul>
             </div>
