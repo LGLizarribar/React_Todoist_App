@@ -1,0 +1,26 @@
+.add-task{
+
+    padding: 8px 23px;
+    
+    &__text {
+        color: grey;
+        cursor: pointer;
+    }
+
+    &__icon {
+        color: #DB4C3F;
+        margin-right: 18px;
+    }
+
+    input {
+        width: 100%;
+        padding: 4px 8px;
+        margin: 8px 0;
+        border-radius: 10px;
+    }
+
+    button {
+        margin-right: 16px;
+    }
+
+}

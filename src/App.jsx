@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 import { Navbar, MainList, Completed } from "./components";
 import "./App.scss";
 
@@ -30,13 +30,22 @@ const App = () => {
     setCompleted([...completed, todo]);
     const newTodos = todos.filter((t) => t.id !== todoId);
     setTodos(newTodos);
-  }
+  };
 
   const uncompleteTodo = completeId => {
     const complete = completed.find((c) => c.id === completeId);
     setTodos([...todos, complete]);
     const newCompleted = completed.filter((c) => c.id !== completeId);
     setCompleted(newCompleted);
+  };
+
+  const newTask = (task) => {
+    const taskToAdd = {
+      title: task,
+      id: uuidv4(),
+    }
+
+    setTodos([...todos, taskToAdd]);
   }
 
   return (
@@ -45,14 +54,25 @@ const App = () => {
         <Navbar />
 
         <Switch>
-          <Route 
-            exact 
-            path="/" 
-            component={(props) => <MainList {...props} todos={todos} handleTodo={completeTodo}/>} />
-          <Route 
-            exact 
-            path="/completed" 
-            component={(props) => <Completed {...props} completed={completed} handleTodo={uncompleteTodo}/>} />
+          <Route
+            exact
+            path="/"
+            component={(props) => <MainList
+              {...props}
+              todos={todos}
+              handleTodo={completeTodo}
+              newTask={newTask}/
+              >}
+            />
+          <Route
+            exact
+            path="/completed"
+            component={(props) => <Completed
+              {...props}
+              completed={completed}
+              handleTodo={uncompleteTodo}
+              />}
+            />
         </Switch>
       </div>
     </Router>
