@@ -19,10 +19,10 @@ const AddTask = (props) => {
 
     return (
         <div className="add-task">
-            <div>
+            {!openForm && <div>
                 <span className="add-task__icon">+</span>
                 <span className="add-task__text" onClick={handleOpenForm}>Añadir Tarea</span>
-            </div>
+            </div>}
 
             {openForm && <div>
                 <form onSubmit={onCreateTask}>
