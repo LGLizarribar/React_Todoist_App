@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import storage from './services/storage';
 import { Navbar, MainList, Completed } from "./components";
 import "./App.scss";
 
-const INITIAL_TODOS = [
+/*const INITIAL_TODOS = [
   {
     id: '3b04f220-fd90-4cf5-8e6a-3da6694b6874',
     title: 'Hacer la comida',
@@ -19,25 +20,35 @@ const INITIAL_TODOS = [
     id: '4b14843c-01e0-4092-9c09-e2fffb344d8b',
     title: 'Echar horas a react',
   },
-]
+];*/
+
+const INITIAL_TODOS = storage.getItem('todos') || [];
+const INITIAL_COMPLETED = storage.getItem('completed') || [];
+
 
 const App = () => {
   const [todos, setTodos] = useState(INITIAL_TODOS);
-  const [completed, setCompleted] = useState([]);
+  const [completed, setCompleted] = useState(INITIAL_COMPLETED);
   const [searchInput, setSearchInput] = useState('');
 
   const completeTodo = (todoId) => {
     const todo = todos.find((t) => t.id === todoId);
     setCompleted([...completed, todo]);
+    storage.setItem('completed', [...completed, todo]);
+
     const newTodos = todos.filter((t) => t.id !== todoId);
     setTodos(newTodos);
+    storage.setItem('todos', newTodos);
   };
 
   const uncompleteTodo = completeId => {
     const complete = completed.find((c) => c.id === completeId);
     setTodos([...todos, complete]);
+    storage.setItem('todos', [...todos, complete]);
+
     const newCompleted = completed.filter((c) => c.id !== completeId);
     setCompleted(newCompleted);
+    storage.setItem('completed', newCompleted);
   };
 
   const newTask = (task) => {
@@ -47,6 +58,7 @@ const App = () => {
     }
 
     setTodos([...todos, taskToAdd]);
+    storage.setItem('todos', [...todos, taskToAdd]);
   };
 
   const changeSearchInput = (search) => {
