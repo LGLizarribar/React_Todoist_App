@@ -73,6 +73,14 @@ const App = () => {
     }
   };
 
+  const filterCompleted = () => {
+    if(searchInput){
+      return completed.filter(t => t.title.toLowerCase().includes(searchInput));
+    } else {
+      return completed;
+    }
+  };
+
   return (
     <Router>
       <div className="app">
@@ -94,7 +102,7 @@ const App = () => {
             path="/completed"
             component={(props) => <Completed
               {...props}
-              completed={completed}
+              completed={filterCompleted()}
               handleTodo={uncompleteTodo}
               />}
             />
